@@ -161,12 +161,9 @@ int mdss_livedisplay_update(struct mdss_dsi_ctrl_pdata *ctrl_pdata,
 	if ((mlc->caps & MODE_HIGH_BRIGHTNESS) && (types & MODE_HIGH_BRIGHTNESS))
 		len += mlc->hbm_enabled ? mlc->hbm_on_cmds_len : mlc->hbm_off_cmds_len;
 
-<<<<<<< HEAD
 	if ((mlc->caps & MODE_SRGB) && (types & MODE_SRGB))
 		len += mlc->srgb_enabled ? mlc->srgb_on_cmds_len : mlc->srgb_off_cmds_len;
 
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 	if (is_cabc_cmd(types) && is_cabc_cmd(mlc->caps)) {
 
 		// The CABC command on most modern panels is also responsible for
@@ -191,11 +188,7 @@ int mdss_livedisplay_update(struct mdss_dsi_ctrl_pdata *ctrl_pdata,
 
 		len += mlc->cabc_cmds_len;
 
-<<<<<<< HEAD
 		pr_debug("%s cabc=%d sre=%d aco=%d cmd=%d\n", __func__,
-=======
-		pr_info("%s cabc=%d sre=%d aco=%d cmd=%d\n", __func__,
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 				mlc->cabc_level, mlc->sre_level, mlc->aco_enabled,
 				cabc_value);
 	}
@@ -238,7 +231,6 @@ int mdss_livedisplay_update(struct mdss_dsi_ctrl_pdata *ctrl_pdata,
 		}
 	}
 
-<<<<<<< HEAD
 	// SRGB mode
 	if ((mlc->caps & MODE_SRGB) && (types & MODE_SRGB)) {
 		if (mlc->srgb_enabled) {
@@ -250,8 +242,6 @@ int mdss_livedisplay_update(struct mdss_dsi_ctrl_pdata *ctrl_pdata,
 		}
 	}
 
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 	// CABC/SRE/ACO features
 	if (is_cabc_cmd(types) && mlc->cabc_cmds_len) {
 		memcpy(cmd_buf + dlen, mlc->cabc_cmds, mlc->cabc_cmds_len);
@@ -271,11 +261,7 @@ int mdss_livedisplay_update(struct mdss_dsi_ctrl_pdata *ctrl_pdata,
 	if (ret == 0) {
 		mdss_dsi_panel_cmds_send(ctrl_pdata, &dsi_cmds,
 				CMD_REQ_COMMIT | CMD_CLK_CTRL);
-<<<<<<< HEAD
-		kfree(dsi_cmds.buf);
-		kfree(dsi_cmds.cmds);
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
+
 	} else {
 		pr_err("%s: error parsing DSI command! ret=%d", __func__, ret);
 	}
@@ -392,7 +378,7 @@ static ssize_t mdss_livedisplay_set_hbm(struct device *dev,
 	return count;
 }
 
-<<<<<<< HEAD
+
 static ssize_t mdss_livedisplay_get_srgb(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
@@ -422,8 +408,6 @@ static ssize_t mdss_livedisplay_set_srgb(struct device *dev,
 	return count;
 }
 
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 static ssize_t mdss_livedisplay_get_color_enhance(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
@@ -528,10 +512,7 @@ static DEVICE_ATTR(aco, S_IRUGO | S_IWUSR | S_IWGRP, mdss_livedisplay_get_aco, m
 static DEVICE_ATTR(preset, S_IRUGO | S_IWUSR | S_IWGRP, mdss_livedisplay_get_preset, mdss_livedisplay_set_preset);
 static DEVICE_ATTR(num_presets, S_IRUGO, mdss_livedisplay_get_num_presets, NULL);
 static DEVICE_ATTR(hbm, S_IRUGO | S_IWUSR | S_IWGRP, mdss_livedisplay_get_hbm, mdss_livedisplay_set_hbm);
-<<<<<<< HEAD
 static DEVICE_ATTR(srgb, S_IRUGO | S_IWUSR | S_IWGRP, mdss_livedisplay_get_srgb, mdss_livedisplay_set_srgb);
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 
 int mdss_livedisplay_parse_dt(struct device_node *np, struct mdss_panel_info *pinfo)
 {
@@ -591,7 +572,6 @@ int mdss_livedisplay_parse_dt(struct device_node *np, struct mdss_panel_info *pi
 			mlc->caps |= MODE_HIGH_BRIGHTNESS;
 	}
 
-<<<<<<< HEAD
 	mlc->srgb_on_cmds = of_get_property(np,
 			"cm,mdss-livedisplay-srgb-on-cmd", &mlc->srgb_on_cmds_len);
 	if (mlc->srgb_on_cmds_len) {
@@ -601,8 +581,6 @@ int mdss_livedisplay_parse_dt(struct device_node *np, struct mdss_panel_info *pi
 			mlc->caps |= MODE_SRGB;
 	}
 
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 	mlc->ce_on_cmds = of_get_property(np,
 			"cm,mdss-livedisplay-color-enhance-on", &mlc->ce_on_cmds_len);
 	if (mlc->ce_on_cmds_len) {
@@ -669,15 +647,12 @@ int mdss_livedisplay_create_sysfs(struct msm_fb_data_type *mfd)
 			goto sysfs_err;
 	}
 
-<<<<<<< HEAD
 	if (mlc->caps & MODE_SRGB) {
 		rc = sysfs_create_file(&mfd->fbi->dev->kobj, &dev_attr_srgb.attr);
 		if (rc)
 			goto sysfs_err;
 	}
 
-=======
->>>>>>> 3950066... video: mdss: LiveDisplay driver
 	if (mlc->caps & MODE_PRESET) {
 		rc = sysfs_create_file(&mfd->fbi->dev->kobj, &dev_attr_preset.attr);
 		if (rc)
@@ -695,7 +670,3 @@ sysfs_err:
 	pr_err("%s: sysfs creation failed, rc=%d", __func__, rc);
 	return rc;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 3950066... video: mdss: LiveDisplay driver
