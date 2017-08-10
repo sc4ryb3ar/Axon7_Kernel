@@ -2907,6 +2907,7 @@ static struct snd_soc_dai_link msm8996_common_dai_links[] = {
 		 /* this dainlink has playback support */
 		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA10,
 	},
+#if 0
 	{
 		.name = "MSM8996 ULL NOIRQ",
 		.stream_name = "MM_NOIRQ",
@@ -2924,6 +2925,7 @@ static struct snd_soc_dai_link msm8996_common_dai_links[] = {
 		 /* this dainlink has playback support */
 		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA8,
 	},
+#endif
 	{
 		.name = "QCHAT",
 		.stream_name = "QCHAT",
